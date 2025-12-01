@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Jogo do Impostor — Gamified</title>
-    <link rel="icon" type="image/png" href="https://tse3.mm.bing.net/th/id/OIP.5Gjg03wH9PMRsjSe43sbCAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"/>
+    <link rel="icon" type="image/png"
+        href="https://tse3.mm.bing.net/th/id/OIP.5Gjg03wH9PMRsjSe43sbCAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
@@ -404,13 +405,49 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const banco = {
-            comidas: ["Pizza"],
-            objetos: ["Mesa"],
-            animais: ["Gato"],
-            cidades: ["Paris"],
-            famosos: ["Beyoncé"],
-            filmes: ["Matrix"]
+        const bancoLocal = {
+            "comidas": [
+                "arroz", "feijão", "macarrão", "lasanha", "pizza", "hambúrguer", "sushi", "temaki", "churrasco", "frango",
+                "peixe", "carne", "batata", "batata frita", "purê", "salada", "tomate", "alface", "cenoura", "beterraba",
+                "abobrinha", "berinjela", "molho", "queijo", "presunto", "ovo", "pão", "bolo", "doce", "sorvete",
+                "chocolate", "biscoito", "iogurte", "manteiga", "creme", "gelatina", "pipoca", "café", "chá", "suco",
+                "refrigerante", "leite", "massa", "espaguete", "panqueca", "torta", "pudim", "feijoada", "coxinha", "empada"
+            ],
+            "objetos": [
+                "cadeira", "mesa", "sofá", "cama", "guarda-roupa", "estante", "livro", "caneta", "lápis", "borracha",
+                "computador", "celular", "tablet", "televisão", "relógio", "quadro", "abajur", "ventilador", "geladeira", "fogão",
+                "micro-ondas", "cadeado", "chave", "mochila", "bolsa", "sapato", "copo", "prato", "garfo", "faca",
+                "colher", "tapete", "cortina", "janela", "porta", "espelho", "câmera", "fone", "caixa", "lâmpada",
+                "teclado", "mouse", "impressora", "moedor", "caneca", "flauta", "violão", "guitarra", "balança", "carteira"
+            ],
+            "animais": [
+                "cachorro", "gato", "papagaio", "coelho", "hamster", "cavalo", "vaca", "porco", "ovelha", "galinha",
+                "pato", "ganso", "pombo", "tartaruga", "peixe", "golfinho", "tubarão", "crocodilo", "jacaré", "leão",
+                "tigre", "urso", "elefante", "girafa", "zebra", "canguru", "raposa", "lobo", "coruja", "águia",
+                "falcão", "pinguim", "urso-pardo", "leopardo", "pantera", "cervo", "raposa-do-ártico", "macaco", "gorila", "chimpanzé",
+                "ornitorrinco", "coala", "panda", "suricato", "esquilo", "golfinho-rosa", "jacaré-anão", "cágado", "lagarto", "salamandra"
+            ],
+            "cidades": [
+                "São Paulo", "Rio de Janeiro", "Belo Horizonte", "Brasília", "Curitiba", "Porto Alegre", "Salvador", "Fortaleza", "Recife", "Manaus",
+                "Belém", "Florianópolis", "Vitória", "Goiânia", "Cuiabá", "Campo Grande", "João Pessoa", "Natal", "Maceió", "Aracaju",
+                "Teresina", "Palmas", "São Luís", "Macapá", "Boa Vista", "Rio Branco", "Blumenau", "Joinville", "Campinas", "Ribeirão Preto",
+                "Sorocaba", "São José dos Campos", "Niterói", "Duque de Caxias", "Contagem", "Jundiaí", "Londrina", "Caxias do Sul", "Santos", "Pelotas",
+                "Bauru", "Maringá", "Anápolis", "Cascavel", "Itajaí", "Vitória da Conquista", "Uberlândia", "São Bernardo do Campo", "Guarulhos", "Santa Maria"
+            ],
+            "famosos": [
+                "Anitta", "Neymar", "Pelé", "Gisele Bündchen", "Ivete Sangalo", "Caetano Veloso", "Gilberto Gil", "Rodrigo Santoro", "Alice Braga", "Lázaro Ramos",
+                "Taís Araújo", "Wesley Safadão", "Luan Santana", "Marília Mendonça", "Sandy", "Junior Lima", "Roberto Carlos", "Chico Buarque", "Daniel", "Ivete Sangalo",
+                "Fátima Bernardes", "William Bonner", "Luciano Huck", "Fausto Silva", "Xuxa", "Bruna Marquezine", "Maisa Silva", "Letícia Sabatella", "Tatá Werneck", "Anderson Silva",
+                "Ronaldo Fenômeno", "Kaká", "Gabriel Medina", "Pelé", "Marta", "Alexandre Pato", "Fernanda Montenegro", "Camila Pitanga", "Lázaro Ramos", "Deborah Secco",
+                "Caio Castro", "Marcos Mion", "Luciano Camargo", "Claudia Leitte", "Ivete Sangalo", "Sérgio Mallandro", "Whindersson Nunes", "Felipe Neto", "Maisa", "Bruna Marquezine"
+            ],
+            "filmes": [
+                "Titanic", "Avatar", "Vingadores", "Homem-Aranha", "Batman", "Superman", "Star Wars", "O Senhor dos Anéis", "Harry Potter", "Frozen",
+                "Procurando Nemo", "Jurassic Park", "Interestelar", "Matrix", "Inception", "O Rei Leão", "Os Incríveis", "Toy Story", "Up", "A Bela e a Fera",
+                "Coringa", "Gladiador", "Piratas do Caribe", "O Poderoso Chefão", "Forrest Gump", "Clube da Luta", "A Origem", "Os Vingadores", "Capitão América", "Thor",
+                "Homem de Ferro", "Pantera Negra", "Guardiões da Galáxia", "Doctor Strange", "Shrek", "Meu Malvado Favorito", "Moana", "Valente", "Ratatouille", "Soul",
+                "Encanto", "Aladdin", "Mulan", "Coco", "Detetive Pikachu", "Transformers", "O Hobbit", "King Kong", "Avatar 2", "Duna"
+            ]
         };
 
         let players = [], theme = "", secretWord = "", impostor = "", playerCards = {}, currentIndex = 0;
@@ -489,6 +526,38 @@
         btnToTheme.addEventListener('click', () => showScreen('screen-theme'));
         document.getElementById('btn-back-setup').addEventListener('click', () => showScreen('screen-setup'));
 
+        async function getWordFromAPI(theme) {
+            try {
+                switch (theme) {
+                    case 'comidas':
+                        const foodRes = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+                        const foodData = await foodRes.json();
+                        return foodData.meals[0].strMeal;
+                    case 'objetos':
+                        return bancoLocal.objetos[Math.floor(Math.random() * bancoLocal.objetos.length)];
+                    case 'animais':
+                        const animalRes = await fetch('https://zoo-animal-api.herokuapp.com/animals/rand');
+                        const animalData = await animalRes.json();
+                        return animalData.name;
+                    case 'cidades':
+                        const cityRes = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities');
+                        const cityData = await cityRes.json();
+                        const cities = cityData.data;
+                        const randCity = cities[Math.floor(Math.random() * cities.length)];
+                        return randCity.city || bancoLocal.cidades[Math.floor(Math.random() * bancoLocal.cidades.length)];
+                    case 'famosos':
+                        return bancoLocal.famosos[Math.floor(Math.random() * bancoLocal.famosos.length)];
+                    case 'filmes':
+                        return bancoLocal.filmes[Math.floor(Math.random() * bancoLocal.filmes.length)];
+                    default:
+                        return "Palavra não disponível";
+                }
+            } catch (err) {
+                console.warn("Erro na API, usando fallback local:", err);
+                return bancoLocal[theme][Math.floor(Math.random() * bancoLocal[theme].length)];
+            }
+        }
+
         document.querySelectorAll('.tema-card').forEach(card => {
             card.addEventListener('click', () => {
                 const t = card.getAttribute('data-theme');
@@ -515,8 +584,14 @@
 
         document.getElementById('btn-start-round').addEventListener('click', () => {
             if (!theme) { alert('Selecione um tema'); return; }
-            if (theme !== 'custom') secretWord = banco[theme][Math.floor(Math.random() * banco[theme].length)];
-            startRound();
+            if (theme !== 'custom') {
+                getWordFromAPI(theme).then(word => {
+                    secretWord = word;
+                    startRound();
+                });
+            } else {
+                startRound();
+            }
         });
 
         function startRound() {
@@ -586,7 +661,7 @@
             showScreen('screen-setup');
         });
     </script>
-</body>
 
+</body>
 
 </html>
