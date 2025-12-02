@@ -318,9 +318,9 @@
                     <div class="icon">🐾</div>
                     <div class="label">Animais</div>
                 </div>
-                <div class="tema-card" data-theme="cidades">
+                <div class="tema-card" data-theme="paises">
                     <div class="icon">🌆</div>
-                    <div class="label">Cidades</div>
+                    <div class="label">Paises</div>
                 </div>
                 <div class="tema-card" data-theme="famosos">
                     <div class="icon">⭐</div>
@@ -390,8 +390,8 @@
             <div class="modal-content bg-dark text-white">
                 <div class="modal-header border-0">
                     <h5 class="modal-title">Palavra Customizada</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Fechar"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"
+                        id="custom-close"></button>
                 </div>
                 <div class="modal-body">
                     <label class="form-label">Digite a palavra secreta</label>
@@ -427,12 +427,14 @@
                 "falcão", "pinguim", "urso-pardo", "leopardo", "pantera", "cervo", "raposa-do-ártico", "macaco", "gorila", "chimpanzé",
                 "ornitorrinco", "coala", "panda", "suricato", "esquilo", "golfinho-rosa", "jacaré-anão", "cágado", "lagarto", "salamandra"
             ],
-            "cidades": [
-                "São Paulo", "Rio de Janeiro", "Belo Horizonte", "Brasília", "Curitiba", "Porto Alegre", "Salvador", "Fortaleza", "Recife", "Manaus",
-                "Belém", "Florianópolis", "Vitória", "Goiânia", "Cuiabá", "Campo Grande", "João Pessoa", "Natal", "Maceió", "Aracaju",
-                "Teresina", "Palmas", "São Luís", "Macapá", "Boa Vista", "Rio Branco", "Blumenau", "Joinville", "Campinas", "Ribeirão Preto",
-                "Sorocaba", "São José dos Campos", "Niterói", "Duque de Caxias", "Contagem", "Jundiaí", "Londrina", "Caxias do Sul", "Santos", "Pelotas",
-                "Bauru", "Maringá", "Anápolis", "Cascavel", "Itajaí", "Vitória da Conquista", "Uberlândia", "São Bernardo do Campo", "Guarulhos", "Santa Maria"
+            "paises": [
+                "Brasil", "Argentina", "Chile", "Uruguai", "Paraguai", "Bolívia", "Peru", "Equador", "Colômbia", "Venezuela",
+                "Estados Unidos", "Canadá", "México", "Cuba", "Costa Rica", "Panamá", "República Dominicana", "Haiti", "Jamaica", "Trinidad e Tobago",
+                "Portugal", "Espanha", "França", "Alemanha", "Itália", "Reino Unido", "Irlanda", "Holanda", "Bélgica", "Suíça",
+                "Suécia", "Noruega", "Dinamarca", "Finlândia", "Áustria", "Polônia", "Tchéquia", "Hungria", "Romênia", "Grécia",
+                "Rússia", "Ucrânia", "Turquia", "Israel", "Emirados Árabes Unidos", "Arábia Saudita", "Egito", "Marrocos", "Tunísia", "África do Sul",
+                "Nigéria", "Angola", "Moçambique", "Quênia", "Gana", "Etiópia", "Senegal", "Cabo Verde", "Guiné-Bissau", "Camarões",
+                "China", "Japão", "Coreia do Sul", "Índia", "Tailândia", "Vietnã", "Indonésia", "Malásia", "Filipinas", "Singapura",
             ],
             "famosos": [
                 "Anitta", "Neymar", "Pelé", "Gisele Bündchen", "Ivete Sangalo", "Caetano Veloso", "Gilberto Gil", "Rodrigo Santoro", "Alice Braga", "Lázaro Ramos",
@@ -527,34 +529,47 @@
         document.getElementById('btn-back-setup').addEventListener('click', () => showScreen('screen-setup'));
 
         async function getWordFromAPI(theme) {
+
+            const randomFromLocal = () => {
+                const list = bancoLocal[theme];
+                if (!list || !list.length) return "Erro ao carregar palavra";
+                return list[Math.floor(Math.random() * list.length)];
+            };
+
             try {
-                switch (theme) {
-                    case 'comidas':
-                        const foodRes = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
-                        const foodData = await foodRes.json();
-                        return foodData.meals[0].strMeal;
-                    case 'objetos':
-                        return bancoLocal.objetos[Math.floor(Math.random() * bancoLocal.objetos.length)];
-                    case 'animais':
-                        const animalRes = await fetch('https://zoo-animal-api.herokuapp.com/animals/rand');
-                        const animalData = await animalRes.json();
-                        return animalData.name;
-                    case 'cidades':
-                        const cityRes = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities');
-                        const cityData = await cityRes.json();
-                        const cities = cityData.data;
-                        const randCity = cities[Math.floor(Math.random() * cities.length)];
-                        return randCity.city || bancoLocal.cidades[Math.floor(Math.random() * bancoLocal.cidades.length)];
-                    case 'famosos':
-                        return bancoLocal.famosos[Math.floor(Math.random() * bancoLocal.famosos.length)];
-                    case 'filmes':
-                        return bancoLocal.filmes[Math.floor(Math.random() * bancoLocal.filmes.length)];
-                    default:
-                        return "Palavra não disponível";
+                if (theme === 'comidas') {
+                    const res = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+                    const data = await res.json();
+                    return data?.meals?.[0]?.strMeal || randomFromLocal();
                 }
-            } catch (err) {
-                console.warn("Erro na API, usando fallback local:", err);
-                return bancoLocal[theme][Math.floor(Math.random() * bancoLocal[theme].length)];
+
+                if (theme === 'objetos') return randomFromLocal();
+
+                if (theme === 'animais') {
+                    const res = await fetch('https://zoo-animal-api.herokuapp.com/animals/rand');
+                    const data = await res.json();
+                    return data?.name || randomFromLocal();
+                }
+
+                if (theme === 'paises') {
+                    const res = await fetch('https://restcountries.com/v3.1/all');
+                    const data = await res.json();
+
+                    const valid = data.filter(c => c?.name?.common);
+                    const pick = valid[Math.floor(Math.random() * valid.length)];
+
+                    return pick?.name?.common || randomFromLocal();
+                }
+
+                if (theme === 'famosos') return randomFromLocal();
+
+                if (theme === 'filmes') return randomFromLocal();
+
+                return randomFromLocal();
+
+            } catch (e) {
+                console.warn("Erro na API, usando banco local:", e);
+                return randomFromLocal();
             }
         }
 
@@ -580,6 +595,10 @@
             bootstrap.Modal.getInstance(document.getElementById('customModal')).hide();
             document.querySelector('.modal-backdrop.fade.show').style.display = 'none';
             startRound();
+        });
+
+        document.getElementById('custom-close').addEventListener('click', () => {
+            document.querySelector('.modal-backdrop.fade.show').remove();
         });
 
         document.getElementById('btn-start-round').addEventListener('click', () => {
